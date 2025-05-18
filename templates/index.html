@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection in Real-Time</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="overlay">
+        <h1>Emotion Detection in Real-Time</h1>
+        <div class="video-frame">
+            <img id="video-stream" src="{{ url_for('video_feed') }}" alt="Webcam Stream">
+        </div>
+        <div id="popup-message" class="popup">
+            <p id="message-text">Waiting for a face... 😊</p>
+        </div>
+    </div>
+
+    <script>
+        function fetchMessage() {
+            fetch('/static/message.txt')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("message-text").textContent = data;
+                });
+        }
+        setInterval(fetchMessage, 1500);
+    </script>
+</body>
+</html>
